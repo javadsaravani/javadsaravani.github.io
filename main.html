@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javad Saravani - Personal Webpage</title>
+    <style>
+        /* CSS Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            padding-top: 80px; /* Space for fixed header */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            background: #2c3e50;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 0;
+            background: #34495e;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .profile-section {
+            display: flex;
+            gap: 2rem;
+            margin: 3rem 0;
+            align-items: center;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 5px solid white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .education-list {
+            margin: 2rem 0;
+        }
+
+        .education-item, .publication-item, .project-item {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Research Section Styles */
+        .research-item {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .research-image, .project-image {
+            max-width: 100%;
+            max-height: 300px; /* Adjust as needed */
+            width: auto;
+            height: auto;
+            margin: 1rem auto; /* Centered */
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* For placeholder divs (if you keep them) */
+        .research-image-placeholder, 
+        .project-image-placeholder {
+            max-width: 100%;
+            height: 250px; /* Fixed height */
+            overflow: hidden;
+            background: #eee;
+            margin: 1rem 0;
+        }
+
+        /* Publications Section Styles */
+        .publication-category {
+            margin-bottom: 2.5rem;
+        }
+
+        .publication-item {
+            background: #f8f9fa;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #2c3e50;
+        }
+
+        .publication-item h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Projects Section Styles */
+        .project-item {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .project-image-placeholder {
+            width: 100%;
+            height: 250px;
+            background: #eee;
+            margin: 1rem 0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+
+        /* Contact Section Styles */
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+
+        .profile-links {
+            list-style: none;
+        }
+
+        .profile-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-links a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .profile-links a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button[type="submit"] {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        button[type="submit"]:hover {
+            background: #1a252f;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+                <li><a href="#research" class="nav-link" data-section="research">Research</a></li>
+                <li><a href="#publications" class="nav-link" data-section="publications">Publications</a></li>
+                <li><a href="#projects" class="nav-link" data-section="current projects">Projects</a></li>
+                <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>Mohammad Javad Saravani</h1>
+            <p>M.Sc. Environmental Engineering</p>
+            <p>Iran University of Science and Technology</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Home Section -->
+        <section id="home" class="content-section active">
+            <div class="profile-section">
+                <img src="my_picture.jpg" alt="Mohammad Javad Saravani" class="profile-image">
+                <div>
+                    <h2>About Me</h2>
+                    <p>I am an environmental engineer and researcher specializing in machine learning applications for water quality modeling and spatial decision support systems. My work focuses on developing data-driven tools to address eutrophication, contaminant transport, and watershed management, with publications in journals like Environmental Science & Technology and Expert Systems with Applications. I am currently working as a research assistant at University of Tehran. I'm skilled in Python, GIS, and machine learning, and I enjoy working across different fields to tackle tough environmental problems. With a strong academic foundation and a TOEFL score of 108/120, I am eager to contribute to international research initiatives at the intersection of environmental science and AI.</p>
+                    <p>In my free time, I love developing 2D metroidvania games in Unity as a hobby—it lets me combine coding skills with creative design to build fun, interactive worlds.</p>
+                </div>
+            </div>
+
+            <div>
+                <h2>Research Interests</h2>
+                <div class="interests-grid">
+                    <div class="interest-item">
+                        <h3>Water quality modeling</h3>
+                        <p>Studying eutrophication, and Chlorophyll-a and nutrient relationship</p>
+                    </div>
+                    <div class="interest-item">
+                        <h3>Machine learning</h3>
+                        <p>Neural networks (ANN, RNN, CNN, LSTM, GRU)</p>
+                        <p>Kolmogorov-Arnold Networks (KAN)</p>
+                        <p>Tranditional models (XGB, RF, SVM, GPR, DT, etc.)</p>
+                    </div>
+                    <div class="interest-item">
+                        <h3>Spatial Analysis</h3>
+                        <p>Geographic Information System (GIS) and Remote Sensing (RS)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="education-list">
+                <h2>Education</h2>
+                <div class="education-item">
+                    <h3>MSc Environmental Engineering</h3>
+                    <p>2019 - 2022</p>
+                    <p>Iran University of Science and Technology</p>
+                </div>
+                <div class="education-item">
+                    <h3>BSc Civil Engineering</h3>
+                    <p>2014 - 2019</p>
+                    <p>Golestan University</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Section -->
+        <section id="research" class="content-section">
+            <h2>Research Focus</h2>
+            
+            <div class="research-item">
+                <div class="research-content">
+                    <h3>Eutrophication/Chlorophyll-a Modelling</h3>
+                    <img src="Res_Eutrophication.jpg" alt="Research Image" class="research-image">
+                    <p>Developing advanced models to predict chlorophyll-a concentrations and assess eutrophication in freshwater systems using machine learning techniques and global datasets.</p>
+                </div>
+            </div>
+            
+            <div class="research-item">
+                <div class="research-content">
+                    <h3>Web GIS decision support system</h3>
+                    <img src="Res_webGIS.jpg" alt="Research Image" class="research-image">
+                    <p>Creating web-based decision support tools for water quality assessment and developing integrated modeling approaches for reservoirs and lakes.</p>
+                </div>
+            </div>
+            
+            <div class="research-item">
+                <div class="research-content">
+                    <h3>Machine Learning in Hydrology</h3>
+                    <img src="Res_ML.jpg" alt="Research Image" class="research-image">
+                    <p>Applying novel machine learning architectures like Kolmogorov-Arnold Networks (KAN) and hybrid models for Chlorophyll-a forecasting and water resource management.</p>
+                </div>
+            </div>
+            
+            <div class="research-item">
+                <div class="research-content">
+                    <h3>Remote Sensing Applications</h3>
+                    <img src="Res_RS.jpg" alt="Research Image" class="research-image">
+                    <p>Using remote sensed data for water resources assessment and forecasting.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications" class="content-section">
+            <h2>Publications</h2>
+            
+            <div class="publication-category">
+                <h3>Published Papers</h3>
+                
+                <div class="publication-item">
+                    <h4>Predicting Chlorophyll-a Concentrations in the World's Largest Lakes Using Kolmogorov-Arnold Networks</h4>
+                    <p><strong>Authors:</strong> Saravani, MJ., Noori, R., Jun, C., Kim, D., Bateni, S. M., Kianmehr, P., & Woolway, R. I.</p>
+                    <p><strong>Journal:</strong> Environmental Science and Technology, 2025</p>
+                    <p><strong>DOI:</strong> <a href="https://doi.org/10.1021/acs.est.4c11113" target="_blank">10.1021/acs.est.4c11113</a></p>
+                </div>
+                
+                <div class="publication-item">
+                    <h4>A web GIS based integrated water resources assessment tool for Javeh Reservoir</h4>
+                    <p><strong>Authors:</strong> Saravani, MJ., Saadatpour, M., & Shahvaran, A. R.</p>
+                    <p><strong>Journal:</strong> Expert Systems with Applications, 2024</p>
+                    <p><strong>DOI:</strong> <a href="https://doi.org/10.1016/j.eswa.2024.124198" target="_blank">10.1016/j.eswa.2024.124198</a></p>
+                </div>
+                
+                <div class="publication-item">
+                    <h4>Investigating the accuracy of hybrid models with wavelet transform in the forecast of watershed runoff</h4>
+                    <p><strong>Authors:</strong> Saravani MJ, Kashef S, Farmahini M, Kashefi M, Zohreh M</p>
+                    <p><strong>Journal:</strong> Journal of Water Management Modeling, 2022</p>
+                    <p><strong>DOI:</strong> <a href="https://doi.org/10.14796/JWMM.C499" target="_blank">10.14796/JWMM.C499</a></p>
+                </div>
+            </div>
+            
+            <div class="publication-category">
+                <h3>Under Review/Revision</h3>
+                
+                <div class="publication-item">
+                    <h4>Global-Scale Modeling of Nutrient-Chlorophyll Relationships Across Different Lake Depths and Trophic States</h4>
+                    <p><strong>Authors:</strong> Saravani, MJ., Noori, R., Kim, D., Jun, C., Bateni, S.M., Woolway, R.I., et al.</p>
+                    <p><strong>Journal:</strong> Science Advances (submitted March 16, 2025)</p>
+                </div>
+                
+                <div class="publication-item">
+                    <h4>Impact of Climatic Factors on Eutrophication in the World's Largest Lake</h4>
+                    <p><strong>Authors:</strong> Mozafari, Z., Noori, R., Bateni, SM., Jun, C., Kim, D., Saravani, MJ., et al.</p>
+                    <p><strong>Journal:</strong> Ecological Indicators (under revision)</p>
+                </div>
+            </div>
+            
+            <div class="publication-category">
+                <h3>Conference Presentations</h3>
+                <div class="publication-item">
+                    <h4>Developing A Machine Learning-Based Web Tool for Analyzing Eutrophication and Water Quantity Indices</h4>
+                    <p><strong>Authors:</strong> Saravani MJ, Saadatpour M, Shahvaran AR</p>
+                    <p><strong>Conference:</strong> AGU Fall Meeting, 2022</p>
+                    <p><strong>Code:</strong> 2022AGUFM.H11I..03S</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="current projects" class="content-section">
+            <h2>Current Research Projects</h2>
+            
+            <div class="project-item">
+                <h3>Evaluating Historical and Future Climate Whiplash Events and Their Influence on Flood Risk</h3>
+                <div class="project-image-placeholder"></div>
+                <p>This project investigates the increasing frequency and intensity of climate whiplash events (rapid transitions between extreme weather conditions) and their impact on flood risk patterns. Using advanced statistical modeling and climate projections, we aim to develop predictive frameworks to assess vulnerability to these extreme events under different climate change scenarios.</p>
+                <p><strong>Techniques:</strong> Climate modeling, Extreme value analysis, Machine learning</p>
+            </div>
+            
+            <div class="project-item">
+                <h3>A Global Trophic State Index for Monitoring Freshwater Lake Eutrophication</h3>
+                <div class="project-image-placeholder"></div>
+                <p>Monitoring lake trophic states is critical for mitigating eutrophication, a global environmental challenge threatening freshwater biodiversity, water quality, and ecosystem services. Eutrophication imposes significant economic costs by reducing fisheries' productivity, increasing water treatment expenses, diminishing recreational and tourism revenue, and necessitating costly restoration efforts to mitigate its impacts on aquatic ecosystems.</p>
+                
+                <p>The Carlson Trophic State Index (CTSI), introduced in 1977, remains a cornerstone tool for assessing eutrophication. However, its derivation from a restricted sample of lakes situated in North America limits its universal applicability, as it fails to account for regional variations in climatic, morphometric, ecoregional, hydrological, and anthropogenic drivers of eutrophication.</p>
+                
+                <p>This study addresses this critical gap by proposing a next-generation, globally calibrated trophic state index informed by a comprehensive dataset of over 13,000 lakes spanning diverse ecoregions, climatic zones, depths, and anthropogenic influences. We employ log-scale fitting equations and advanced modeling frameworks, including multivariate regression, neural networks, and machine learning algorithms to introduce the global trophic state index.</p>
+                
+                <p>To facilitate future application of the global trophic state index, we also develop an App in Python environment, which displays the calculated trophic states worldwide. By transcending the geographical constraints of traditional indices, this index enables more accurate assessments of eutrophication risks and minimize the uncertainties across lakes in both data-rich and understudied regions.</p>
+                
+                <p><strong>Techniques:</strong> Machine learning, Large-scale data analysis, Python app development</p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="content-section">
+            <h2>Contact Information</h2>
+            
+            <div class="contact-info">
+                <h3>Email</h3>
+                <p><a href="mailto:mohammad_saravani@alumni.iust.ac.ir">mohammad_saravani@alumni.iust.ac.ir</a></p>
+                <p><a href="mailto:javad.saravani.civileng@gmail.com">javad.saravani.civileng@gmail.com</a></p>
+            </div>
+            
+            <div class="contact-info">
+                <h3>Academic Address</h3>
+                <p>Dr. Noori Research Lab<br>
+                University of Tehran<br>
+                Tehran, Iran</p>
+            </div>
+            
+            <div class="contact-info">
+                <h3>Professional Profiles</h3>
+                <ul class="profile-links">
+                    <li><a href="https://scholar.google.com/citations?hl=en&user=S83vMCwAAAAJ&view_op=list_works" target="_blank">Google Scholar</a></li>
+                    <li><a href="https://www.researchgate.net/profile/Mohammad-Javad-Saravani" target="_blank">ResearchGate</a></li>
+                    <li><a href="https://www.linkedin.com/in/mohammad-javad-saravani-b89572176/" target="_blank">LinkedIn</a></li>
+                    <li><a href="https://orcid.org/0009-0001-2216-6963" target="_blank">ORCID</a></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Mohammad Javad Saravani | Research Assistant</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dynamic year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Tab navigation without page reload
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links and sections
+                document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Show corresponding section
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId).classList.add('active');
+                
+                // Smooth scroll to top
+                window.scrollTo({
+                    top: 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Optional: Highlight nav link when scrolling to section
+        window.addEventListener('scroll', function() {
+            // This can be enhanced to change active nav based on scroll position
+        });
+    </script>
+</body>
+</html>
